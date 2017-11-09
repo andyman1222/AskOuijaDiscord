@@ -7,7 +7,7 @@ A Discord bot to emulate reddit.com/r/askouija in a Discord channel
 1. In `#askouija`, Type `Ouija, ` and a question you want Ouija to ask.
 2. Everyone in the channel can now reply 1 character responses to answer the question
 3. type `goodbye` to end answering and see your answer.
-## How to use your own bot
+## How to use your own bot (needs node.js)
 1. go into `config.json` and add your bot key where needed
 2. download and modify `app.js` to your liking
 3. use `npm install discord.js` to install dependencies
