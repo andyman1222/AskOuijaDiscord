@@ -1,7 +1,7 @@
 # AskOuijaDiscord
 A Discord bot to emulate https://reddit.com/r/askouija in a Discord channel
 ## Add the bot to your own server!
-1. Go to https://discordapp.com/oauth2/authorize?client_id=375883731057246208&scope=bot&permissions=1, add the bot to your server and **give it read, write, and manage (message delete) permissions! the bot won't work without those (yet)!**
+1. Go to https://discordapp.com/oauth2/authorize?client_id=375883731057246208&scope=bot&permissions=76800, add the bot to your server and **give it read, write, and manage (message delete) permissions! the bot won't work without those (yet)!**
 2. Create the Discord channel `#askouija`.
 ## How to use in your server
 1. In `#askouija`, Type `Ouija, ` and a question you want Ouija to ask.
