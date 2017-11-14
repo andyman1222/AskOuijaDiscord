@@ -93,12 +93,32 @@ client.on("message", async message => {
       console.log(message.content);
       return message.delete();
     }
-    //else if(client.emojis.find(message.content.substring(1, message.length-1)) != undefined) answers[index] += client.emojis.find(message.content.substring(1, message.length-1)).toString();
-    else if(message.content.length > 1){
-      console.log(message.content);
+    else if(message.author.username == prevUser[index]){
       return message.delete();
     }
-    else if(message.author.username == prevUser[index]){
+    else if(message.content.charAt(0) > 255){
+      answers[index] += message.content;
+      prevUser[index] = message.author.username;
+    }
+    else if(message.content.charAt(0) == '<' && message.content.charAt(1) == ':' && message.content.charAt(messge.content.length-1) == '>'){
+      var i = 2;
+      var id = "";
+      for(i = 2; i < message.content.length && message.charAt(i) != ':'; i++){
+        
+      }
+      if(i >= message.content.length){
+        return message.delete();
+      }
+      else{
+        for(i++; message.charAt(i) != '>'; i++){
+          id += "" + message.charAt(i);
+        }
+        answers[index] += client.emojis.get(id);
+        prevUser[index] = message.author.username;
+      }
+    }
+    else if(message.content.length > 1){
+      console.log(message.content);
       return message.delete();
     }
     else{
