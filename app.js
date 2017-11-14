@@ -55,7 +55,8 @@ client.on("message", async message => {
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
     else if(message.content.toLowerCase() == "ouija, help"){
-      return message.channel.send("`Find out more on reddit.com/r/AskOuija\nHOW TO DO IT: ask a question and have it answered by Ouija, or to help answer a question, send a 1 letter response or \"Goodbye\" to end the response.`");
+      message.user.send("`Find out more on reddit.com/r/AskOuija\nHOW TO DO IT: ask a question and have it answered by Ouija, or to help answer a question, send a 1 letter response or \"Goodbye\" to end the response.`");
+      return message.delete();
     }
     else{
       questions[index] = message.content.substr(6, message.content.length);
@@ -67,12 +68,22 @@ client.on("message", async message => {
   else{
     if(message.content.indexOf(config.prefix) !== -1){
       if(message.content.substr(7, message.content.length).toLowerCase() == "question"){
-        return message.channel.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`");
+        message.user.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`");
+        message.delete();
+        return;
+      }
+      else if (message.content.substr(7, message.content.length).toLowerCase() == "reset" && message.member.highestRole.hasPermission("ADMINISTRATOR")){
+        askingQuestion[index] = false;
+        message.channel.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`\n\nThe question was reset by the administrator.");
+        questions[index] = "";
+        answers[index] = "";
+        users[index] = "";
+        return;
       }
     }
     else if(message.content.toLowerCase().indexOf("goodbye") != -1){
       askingQuestion[index] = false;
-      message.channel.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
+      message.user.send("The question, asked by " + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
@@ -91,6 +102,7 @@ client.on("message", async message => {
     }
     else{
       answers[index] += message.content;
+      prevUser[index] = message.author.username;
     } 
   }
 });
