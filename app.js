@@ -55,7 +55,7 @@ client.on("message", async message => {
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
     else if(message.content.toLowerCase() == "ouija, help"){
-      message.user.send("`Find out more on reddit.com/r/AskOuija\nHOW TO DO IT: ask a question and have it answered by Ouija, or to help answer a question, send a 1 letter response or \"Goodbye\" to end the response.`");
+      message.author.user.send("`Find out more on reddit.com/r/AskOuija\nHOW TO DO IT: ask a question and have it answered by Ouija, or to help answer a question, send a 1 letter response or \"Goodbye\" to end the response.`");
       return message.delete();
     }
     else{
@@ -68,7 +68,7 @@ client.on("message", async message => {
   else{
     if(message.content.indexOf(config.prefix) !== -1){
       if(message.content.substr(7, message.content.length).toLowerCase() == "question"){
-        message.user.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`");
+        message.author.user.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`");
         message.delete();
         return;
       }
@@ -83,13 +83,14 @@ client.on("message", async message => {
     }
     else if(message.content.toLowerCase().indexOf("goodbye") != -1){
       askingQuestion[index] = false;
-      message.user.send("The question, asked by " + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
+      message.author.user.send("The question, asked by " + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
       return;
     }
     else if(message.author.username == users[index]){
+      console.log(message.content);
       return message.delete();
     }
     //else if(client.emojis.find(message.content.substring(1, message.length-1)) != undefined) answers[index] += client.emojis.find(message.content.substring(1, message.length-1)).toString();
