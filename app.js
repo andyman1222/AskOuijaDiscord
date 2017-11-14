@@ -81,6 +81,12 @@ client.on("message", async message => {
         return;
       }
     }
+    else if(message.author.username == users[index]){
+      return message.delete();
+    }
+    else if(message.author.username == prevUser[index]){
+      return message.delete();
+    }
     else if(message.content.toLowerCase().indexOf("goodbye") != -1){
       askingQuestion[index] = false;
       message.author.sendMessage("The question, asked by " + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
@@ -88,13 +94,6 @@ client.on("message", async message => {
       answers[index] = "";
       users[index] = "";
       return;
-    }
-    else if(message.author.username == users[index]){
-      console.log(message.content);
-      return message.delete();
-    }
-    else if(message.author.username == prevUser[index]){
-      return message.delete();
     }
     else if(message.content.charAt(0) > 255){
       answers[index] += message.content;
