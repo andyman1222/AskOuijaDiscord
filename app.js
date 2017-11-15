@@ -48,10 +48,6 @@ client.on("message", async message => {
   }
   index = guilds.indexOf(message.guild.id);
   if(!(message.channel.name == "askouija")) return;
-  if(message.author.bot){
-    if(message.content.indexOf("\n\nThe answer is: ") !== -1) return;//message.pin();
-      return;
-  }
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
     else if(message.content.toLowerCase() == "ouija, help"){
@@ -61,12 +57,17 @@ client.on("message", async message => {
     else{
       questions[index] = message.content.substr(6, message.content.length);
       askingQuestion[index] = true;
-      users[index] = message.author.username;
+      users[index] = message.author;
       return message.channel.send("The question, asked by <@" + users[index] + ">, was: \n\n`" + questions[index] + "`");
     }
   }
   else{
-    if(message.content.indexOf(config.prefix) !== -1){
+    if(message.author.bot){
+      if(message.author != client)
+      return message.delete();
+      return;
+    }
+    else if(message.content.indexOf(config.prefix) !== -1){
       if(message.content.substr(7, message.content.length).toLowerCase() == "question"){
         message.author.sendMessage("The question, asked by <@" + users[index] + ">, was: \n\n`" + questions[index] + "`");
         message.delete();
