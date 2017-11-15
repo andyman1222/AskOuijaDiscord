@@ -63,7 +63,7 @@ client.on("message", async message => {
   }
   else{
     if(message.author.bot){
-      if(message.author != client)
+      if(message.author.id != "375883731057246208")
       return message.delete();
       return;
     }
