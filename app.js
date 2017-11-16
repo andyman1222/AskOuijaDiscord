@@ -58,7 +58,7 @@ client.on("message", async message => {
       questions[index] = message.content.substr(6, message.content.length);
       askingQuestion[index] = true;
       users[index] = message.author;
-      return message.channel.send("The question, asked by <@" + users[index] + ">, was: \n\n`" + questions[index] + "`");
+      return message.channel.send("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`");
     }
   }
   else{
@@ -69,13 +69,13 @@ client.on("message", async message => {
     }
     else if(message.content.indexOf(config.prefix) !== -1){
       if(message.content.substr(7, message.content.length).toLowerCase() == "question"){
-        message.author.sendMessage("The question, asked by <@" + users[index] + ">, was: \n\n`" + questions[index] + "`");
+        message.author.sendMessage("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`");
         message.delete();
         return;
       }
       else if (message.content.substr(7, message.content.length).toLowerCase() == "reset" && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
-        message.channel.send("The question, asked by <@" + users[index] + ">, was: \n\n`" + questions[index] + "`\n\nThe question was reset by the administrator or asker.");
+        message.channel.send("The question, asked by @" + users[index] + ", was: \n\n`" + questions[index] + "`\n\nThe question was reset by the administrator or asker.");
         questions[index] = "";
         answers[index] = "";
         users[index] = "";
@@ -90,7 +90,7 @@ client.on("message", async message => {
     }
     else if(message.content.toLowerCase().indexOf("goodbye") != -1){
       askingQuestion[index] = false;
-      message.channel.send("The question, asked by <@" + messageusers[index] + ">, was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
+      message.channel.send("The question, asked by @" + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
