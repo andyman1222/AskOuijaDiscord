@@ -91,7 +91,7 @@ client.on("message", async message => {
     }
     else if(message.content.toLowerCase().indexOf("goodbye") != -1){
       askingQuestion[index] = false;
-      message.channel.send("The question, asked by " + messageusers[index] + "> was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
+      message.channel.send("The question, asked by " + messageusers[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
