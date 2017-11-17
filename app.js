@@ -20,8 +20,8 @@ client.on("ready", () => {
   // docs refer to as the "ClientUser".
   client.user.setGame('/r/AskOuija');
 
-  for(var i = 0; i < client.guilds.size; i++){
-    client.guilds[i].channels.find("name", "askouija").send("*AskOuija bot is back online.*");
+  for(var guig in client.guilds){
+    guig.channels.find("name", "askouija").send("*AskOuija bot is back online.*");
   }
   
 });
