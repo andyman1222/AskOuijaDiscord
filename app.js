@@ -21,8 +21,10 @@ client.on("ready", () => {
   client.user.setGame('/r/AskOuija');
 
   for(var guig in client.guilds){
-    guig.channels.find("name", "askouija").send("*AskOuija bot is back online.*");
+    for(var chan in guig.channels){
+    if(chan.name == "askouija") chan.send("*AskOuija bot is back online.*");
   }
+}
   
 });
 
@@ -34,7 +36,9 @@ client.on("guildCreate", guild => {
     if(guild.channels[i].name == "askouija") return;
   }
   guild.createChannel("askouija", "text");
-  guild.channels.find("name", "askouija").send("*AskOuija bot has been added to this server successfully!*");
+    for(var chan in guild.channels){
+    if(chan.name == "askouija") chan.send("*AskOuija bot has been added successfully!!!*");
+}
 });
 
 client.on("guildDelete", guild => {
