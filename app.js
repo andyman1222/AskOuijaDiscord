@@ -144,7 +144,6 @@ client.on("message", async message => {
       }
     }
     else if(message.content.length > 1){
-      console.log(message.content);
       return message.delete();
     }
     else {
