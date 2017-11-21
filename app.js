@@ -18,11 +18,11 @@ client.on("ready", () => {
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
   // Example of changing the bot's playing game to something useful. `client.user` is what the
   // docs refer to as the "ClientUser".
-  client.user.setGame('/r/AskOuija');
+  client.user.setGame(config.game);
 
   for(var guig in client.guilds){
     for(var chan in guig.channels){
-    if(chan.name == "askouija") chan.send("*AskOuija bot is back online.*");
+    if(chan.name == config.channel) chan.send(config.messages.restart);
   }
 }
   
@@ -33,11 +33,11 @@ client.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guilds.push();
   for(i = 0; i < guild.channels.length; i++){
-    if(guild.channels[i].name == "askouija") return;
+    if(guild.channels[i].name == config.channel) return;
   }
-  guild.createChannel("askouija", "text");
+  guild.createChannel(config.channel, "text");
     for(var chan in guild.channels){
-    if(chan.name == "askouija") chan.send("*AskOuija bot has been added successfully!!!*");
+    if(chan.name == config.channel) chan.send(config.messages.welcome);
 }
 });
 
@@ -58,40 +58,54 @@ client.on("message", async message => {
     prevUser.push("");
   }
   index = guilds.indexOf(message.guild.id);
-  if(!(message.channel.name == "askouija")) return;
+  if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
-    else if(message.content.toLowerCase() == "ouija, help"){
-      message.author.send("`Find out more on reddit.com/r/AskOuija\nHOW TO DO IT: ask a question and have it answered by Ouija, or to help answer a question, send a 1 letter response or \"Goodbye\" to end the response.`");
+    else if(message.content.toLowerCase() == config.prefix + config.commands.help){
+      message.author.send(config.messages.help);
       return message.delete();
+    }
+    else if(message.content.toLowerCase() == config.prefix + config.commands.question){
+      message.author.send(config.messages.noQuestion);
+      return message.delte();
+    }
+    else if(message.content.toLowerCase() == config.prefix + config.commands.reset){
+      message.author.send(config.messages.noQuestion);
+      return message.delte();
+    }
+    else if(message.content.toLowerCase() == config.prefix + config.commands.goodbye){
+      message.author.send(config.messages.noQuestion);
+      return message.delte();
     }
     else{
       questions[index] = message.content.substr(6, message.content.length);
       askingQuestion[index] = true;
       users[index] = message.author;
-      return message.channel.send("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`");
+      return message.channel.send(config.messages.question);
     }
   }
   else{
     if(message.author.bot){
-      if(message.author.id != "375883731057246208")
+      if(message.author.id != config.id)
       return message.delete();
       return;
     }
     else if(message.content.indexOf(config.prefix) !== -1){
-      if(message.content.substr(7, message.content.length).toLowerCase() == "question"){
-        message.author.send("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`");
+      if(message.content.substr(7, message.content.length).toLowerCase() == config.messages.question){
+        message.author.send(config.messages.question);
         message.delete();
         return;
       }
-      else if (message.content.substr(7, message.content.length).toLowerCase() == "reset" && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
+      else if (message.content.substr(7, message.content.length).toLowerCase() == config.commands.reset && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
-        message.channel.send("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`\n\nThe question was reset by the administrator or asker.");
+        message.channel.send(config.messages.question + config.messages.reset);
         questions[index] = "";
         answers[index] = "";
         users[index] = "";
+        prevUser[index] = "";
         return;
       }
+      else return message.delete();
     }
     else if(message.author == users[index]){
       return message.delete();
@@ -99,12 +113,13 @@ client.on("message", async message => {
     else if(message.author == prevUser[index]){
       return message.delete();
     }
-    else if(message.content.toLowerCase().indexOf("goodbye") != -1){
+    else if(message.content.toLowerCase().indexOf(config.commands.goodbye) != -1){
       askingQuestion[index] = false;
-      message.channel.send("The question, asked by " + users[index] + ", was: \n\n`" + questions[index] + "`\n\nThe answer is: \n\n`" + answers[index] + "`");
+      message.channel.send(config.messages.question + config.messages.answer);
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
+      prevUser[index] = "";
       return;
     }
     else if(message.content.charAt(0) > 255){
@@ -132,7 +147,7 @@ client.on("message", async message => {
       console.log(message.content);
       return message.delete();
     }
-    else{
+    else {
       answers[index] += message.content;
       prevUser[index] = message.author;
       return;
