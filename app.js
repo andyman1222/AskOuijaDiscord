@@ -83,7 +83,7 @@ client.on("message", async message => {
       questions[index] = message.content.substr(6, message.content.length);
       askingQuestion[index] = true;
       users[index] = message.author;
-      return message.channel.send(eval(config.messages.question));
+      return message.channel.send(config.messages.question);
     }
   }
   else{
@@ -94,13 +94,13 @@ client.on("message", async message => {
     }
     else if(message.content.indexOf(config.prefix) !== -1){
       if(message.content.substr(7, message.content.length).toLowerCase() == config.messages.question){
-        message.author.send(eval(config.messages.question));
+        message.author.send(config.messages.question);
         message.delete();
         return;
       }
       else if (message.content.substr(7, message.content.length).toLowerCase() == config.commands.reset && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
-        message.channel.send(eval(config.messages.question + config.messages.reset));
+        message.channel.send(config.messages.question + config.messages.reset);
         questions[index] = "";
         answers[index] = "";
         users[index] = "";
@@ -117,7 +117,7 @@ client.on("message", async message => {
     }
     else if(message.content.toLowerCase().indexOf(config.commands.goodbye) != -1){
       askingQuestion[index] = false;
-      message.channel.send(eval(config.messages.question + config.messages.answer));
+      message.channel.send(config.messages.question + config.messages.answer);
       questions[index] = "";
       answers[index] = "";
       users[index] = "";
