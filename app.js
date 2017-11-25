@@ -83,6 +83,8 @@ client.on("message", async message => {
       questions[index] = message.content.substr(6, message.content.length);
       askingQuestion[index] = true;
       users[index] = message.author;
+      config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
+      config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
       return message.channel.send(config.messages.question);
     }
   }
@@ -117,6 +119,8 @@ client.on("message", async message => {
     }
     else if(message.content.toLowerCase().indexOf(config.commands.goodbye) != -1){
       askingQuestion[index] = false;
+      config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
+      config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
       message.channel.send(config.messages.question + config.messages.answer);
       questions[index] = "";
       answers[index] = "";
