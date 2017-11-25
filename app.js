@@ -58,6 +58,8 @@ client.on("message", async message => {
     prevUser.push("");
   }
   index = guilds.indexOf(message.guild.id);
+  config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
+  config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
   if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
