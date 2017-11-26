@@ -63,19 +63,19 @@ client.on("message", async message => {
   if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0) return;
-    else if(message.content.toLowerCase() == config.prefix + config.commands.help){
+    else if(message.content.toLowerCase().indexOf(config.prefix + config.commands.help) !== 0){
       message.author.send(config.messages.help);
       return message.delete();
     }
-    else if(message.content.toLowerCase() == config.prefix + config.commands.question){
+    else if(message.content.toLowerCase().indexOf(config.prefix + config.commands.question) !== 0){
       message.author.send(config.messages.noQuestion);
       return message.delte();
     }
-    else if(message.content.toLowerCase() == config.prefix + config.commands.reset){
+    else if(message.content.toLowerCase().indexOf(config.prefix + config.commands.reset) !== 0){
       message.author.send(config.messages.noQuestion);
       return message.delte();
     }
-    else if(message.content.toLowerCase() == config.prefix + config.commands.goodbye){
+    else if(message.content.toLowerCase().indexOf(config.prefix + config.commands.goodbye) !== 0){
       message.author.send(config.messages.noQuestion);
       return message.delte();
     }
@@ -120,7 +120,7 @@ client.on("message", async message => {
     else if(message.content.toLowerCase().indexOf(config.commands.goodbye) != -1){
       askingQuestion[index] = false;
       config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
-      config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
+      config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;-+
       message.channel.send(config.messages.question + config.messages.answer);
       questions[index] = "";
       answers[index] = "";
