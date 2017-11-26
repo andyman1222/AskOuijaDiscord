@@ -95,17 +95,15 @@ client.on("message", async message => {
     }
   }
   else{
-    if(message.author.bot) return message.delete();
+    if(message.author.bot && message.author.id != client.user.id) return message.delete();
     else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
         message.author.send(config.messages.question);
         message.delete();
-        return;
       }
       else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
         message.author.send(config.messages.help);
         message.delete();
-        return;
       }
       else if (message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
@@ -114,9 +112,9 @@ client.on("message", async message => {
         answers[index] = "";
         users[index] = "";
         prevUser[index] = "";
-        return;
       }
       else return message.delete();
+      return;
     }
     else if(message.author == users[index]){
       return message.delete();
