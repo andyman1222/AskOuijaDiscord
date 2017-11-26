@@ -71,7 +71,8 @@ client.on("message", async message => {
     }
     else{
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
-        client.send(message.author, config.messages.help);
+        message.author.send(config.messages.help).then(message => console.log(`Sent message: ${message.content}`))
+        .catch(console.error);
       message.delete();
       return;
       }
