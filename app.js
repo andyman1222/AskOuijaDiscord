@@ -86,16 +86,16 @@ client.on("message", async message => {
       
       else{
         questions[index] = message.content.substr(config.prefix.length, message.content.length);
-        askingQuestion[index] = true;
         users[index] = message.author;
         config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
         config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
-        return message.channel.send(config.messages.question);
+        message.channel.send(config.messages.question);
+        askingQuestion[index] = true;
       }
     }
   }
   else{
-    if(message.author.bot && message.author.id != client.user.id) return message.delete();
+    if(message.author.bot && message.author != client.user) return message.delete();
     else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
         message.author.send(config.messages.question);
