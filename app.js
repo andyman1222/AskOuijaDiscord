@@ -62,13 +62,11 @@ client.on("message", async message => {
   config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
   if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
-    if(message.content.indexOf(config.prefix) !== 0){
-      if(message.content == config.commands.goodbye){
-        message.author.send(config.messages.noQuestion);
-        message.delete();
-      }
-      return;
+    if(message.content === config.commands.goodbye){
+      message.author.send(config.messages.noQuestion);
+      message.delete();
     }
+    else if(message.content.indexOf(config.prefix) !== 0)return;
     else{
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
         message.author.send(config.messages.help);
