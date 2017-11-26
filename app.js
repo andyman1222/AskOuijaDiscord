@@ -62,34 +62,38 @@ client.on("message", async message => {
   config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
   if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
-    if(message.content.indexOf(config.prefix) !== 0) return;
-    else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
-      message.author.send(config.messages.help);
-      message.delete();
-      return;
-    }
-    else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.question){
-      message.author.send(config.messages.noQuestion);
-      message.delte();
-      return;
-    }
-    else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset){
-      message.author.send(config.messages.noQuestion);
-      message.delte();
-      return;
-    }
-    else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.goodbye){
-      message.author.send(config.messages.noQuestion);
-      message.delte();
+    if(message.content.indexOf(config.prefix) !== 0){
+      if(message.content == config.commands.goodbye){
+        message.author.send(config.messages.noQuestion);
+        message.delete();
+      }
       return;
     }
     else{
-      questions[index] = message.content.substr(config.prefix.length, message.content.length);
-      askingQuestion[index] = true;
-      users[index] = message.author;
-      config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
-      config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
-      return message.channel.send(config.messages.question);
+      if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
+      message.author.send(config.messages.help);
+      message.delete();
+      return;
+      }
+      else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.question){
+        message.author.send(config.messages.noQuestion);
+        message.delte();
+        return;
+      }
+      else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset){
+        message.author.send(config.messages.noQuestion);
+        message.delte();
+        return;
+      }
+      
+      else{
+        questions[index] = message.content.substr(config.prefix.length, message.content.length);
+        askingQuestion[index] = true;
+        users[index] = message.author;
+        config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
+        config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
+        return message.channel.send(config.messages.question);
+      }
     }
   }
   else{
@@ -98,7 +102,7 @@ client.on("message", async message => {
       return message.delete();
       return;
     }
-    else if(message.content.indexOf(config.prefix) !== -1){
+    else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
         message.author.send(config.messages.question);
         message.delete();
