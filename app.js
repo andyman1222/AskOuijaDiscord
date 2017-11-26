@@ -95,11 +95,7 @@ client.on("message", async message => {
     }
   }
   else{
-    if(message.author.bot){
-      if(message.author.id != config.id)
-      return message.delete();
-      return;
-    }
+    if(message.author.bot) return message.delete();
     else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
         message.author.send(config.messages.question);
@@ -113,7 +109,7 @@ client.on("message", async message => {
       }
       else if (message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
-        message.author.send(config.messages.question + config.messages.reset);
+        message.channel.send(config.messages.question + config.messages.reset);
         questions[index] = "";
         answers[index] = "";
         users[index] = "";
