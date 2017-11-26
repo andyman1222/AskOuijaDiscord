@@ -95,13 +95,13 @@ client.on("message", async message => {
     }
   }
   else{
-    if(message.author.bot && message.author != client.user) return message.delete();
+    if(message.author.bot && message.author.id != config.id) return message.delete();
     else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
         message.author.send(config.messages.question);
         message.delete();
       }
-      else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
+      if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
         message.author.send(config.messages.help);
         message.delete();
       }
