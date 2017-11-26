@@ -64,25 +64,24 @@ client.on("message", async message => {
   if(askingQuestion[index] == false){
     if(message.content.indexOf(config.prefix) !== 0){
       if(message.content == config.commands.goodbye){
-        client.send(message.author, config.messages.noQuestion);
+        message.author.send(config.messages.noQuestion);
         message.delete();
       }
       return;
     }
     else{
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
-        message.author.send(config.messages.help).then(message => console.log(`Sent message: ${message.content} to: ${message.author.username}`))
-        .catch(console.error);
+        message.author.send(config.messages.help);
       message.delete();
       return;
       }
       else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.question){
-        client.send(message.author, config.messages.noQuestion);
+        message.author.send(config.messages.noQuestion);
         message.delete();
         return;
       }
       else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset){
-        client.send(message.author, config.messages.noQuestion);
+        message.author.send(config.messages.noQuestion);
         message.delete();
         return;
       }
@@ -105,18 +104,18 @@ client.on("message", async message => {
     }
     else if(message.content.indexOf(config.prefix) == 0){
       if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.messages.question){
-        client.send(message.author, config.messages.question);
+        message.author.send(config.messages.question);
         message.delete();
         return;
       }
       else if(message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.help){
-        client.send(message.author, config.messages.help);
+        message.author.send(config.messages.help);
         message.delete();
         return;
       }
       else if (message.content.substr(config.prefix.length, message.content.length).toLowerCase() == config.commands.reset && (message.member.highestRole.hasPermission("ADMINISTRATOR")|| message.author == users[index])){
         askingQuestion[index] = false;
-        client.send(message.author, config.messages.question + config.messages.reset);
+        message.author.send(config.messages.question + config.messages.reset);
         questions[index] = "";
         answers[index] = "";
         users[index] = "";
