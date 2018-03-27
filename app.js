@@ -11,7 +11,9 @@ const config = require("./config.json");
 // config.token contains the bot's token
 // config.prefix contains the message prefix.
 
-var users = new Array(), questions = new Array(), answers = new Array(), guilds = new Array(), askingQuestion = new Array(), prevUser = new Array();
+var users = new Array(), stories = new Array(), titles = new Array(), prevSentences = new Array(), guilds = new Array(), prevUser = new Array(), sayingStory = new Array();
+
+var wordCount = new Array(), adminOverride = new Array(), channelIDs = new Array();
 
 client.on("ready", () => {
   // This event will run if the bot starts, and logs in, successfully.
@@ -35,7 +37,6 @@ client.on("guildCreate", guild => {
   for(i = 0; i < guild.channels.length; i++){
     if(guild.channels[i].name == config.channel) return;
   }
-  guild.createChannel(config.channel, "text");
     for(var chan in guild.channels){
     if(chan.name == config.channel) chan.send(config.messages.welcome);
 }
@@ -51,15 +52,14 @@ client.on("message", async message => {
   var index;
   if(guilds.indexOf(message.guild.id) == -1){
     guilds.push(message.guild.id);
-    answers.push("");
-    questions.push("");
-    askingQuestion.push(false);
+    stories.push("");
+    titles.push("");
+    prevSentences.push("");
     users.push(message.author);
     prevUser.push("");
+    sayingStory.push(false);
   }
   index = guilds.indexOf(message.guild.id);
-  config.messages.question = `The question, asked by ${users[index]}, was: \n\n\` ${questions[index]} \`.`;
-  config.messages.answer =`"\n\nThe answer is: \n\n\`${answers[index]}\``;
   if(!(message.channel.name == config.channel)) return;
   if(askingQuestion[index] == false){
     if(message.content === config.commands.goodbye){

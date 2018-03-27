@@ -1,16 +1,14 @@
 {
   "token": "token here",
   "id": "id here",
-  "prefix": "Ouija, ",
-  "game" : "/r/AskOuija",
-  "channel" : "askouija",
+  "prefix": "!storyBot ",
+  "game" : "!storyBot",
   "messages" : {
-    "welcome": "*AskOuija bot has been added successfully!!!*",
-    "restart": "*AskOuija bot is back online.*",
-    "help": "Find out more on http://reddit.com/r/AskOuija\n\n__HOW TO DO IT:__\n\n1. Ask a question (start it with `Ouija, `) and have it answered by Ouija. \n2. To help answer a question, send a 1 letter response.\n3. \"Goodbye\" to end the response.`",
-    "question": "The question, asked by ${users[index]}, was: \n\n`${questions[index]}`.",
-    "noQuestion": "There is currently no question being asked. Ask a question by starting it with `Ouija, `, followed by your question.",
-    "answer": "\n\nThe answer is: \n\n`${answers[index]}`",
+    "welcome": "*StoryBot added successfully!!!*",
+    "restart": "*StoryBot bot is back online.*",
+    "help": "This is StoryBot, where users can make stories words-by-words, or by whole sentences. To start a story, use `!storyBot \"[title]\" [numOfWords/'sentence'] [strictWordCount: y/n]`, \nwhere title is story title, numOfWords is number of words is max words per post (or say 'sentence' to allow people to make full sentences_, and if strictWordCount = true, posts with less words than numOfWords will be deleted. End a story with 'The end.'\n\nOther commands: \n `!storyBot story`: get the current story so far, or the previous story if one isn't in the making. \n`!storyBot lastSentence`: get last sentence said in the story.\n`!storyBot admin`: view some admin controls. `!storyBot reset`: forcibly stop your own story, or if you're admin, anyone else's story. \n(You can also post non-story content by saying stuff in parenthesis, like this.)",
+    "story": "Story so far: *${titles[index]}*:\n`${stories[index]}`",
+    "lastSentence": "Previous sentence: ",
     "reset": "\n\nThe question was reset."
   },
   "commands":{
