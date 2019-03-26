@@ -1,0 +1,23 @@
+{
+  "token": "token is stored in bot.py",
+  "id": "id here",
+  "prefix": "Ouija, ",
+  "game" : "/r/AskOuija",
+  "channel" : "askouija",
+  "messages" : {
+    "welcome": "*AskOuija bot has been added successfully!!!*",
+    "restart": "*AskOuija bot is back online.*",
+    "help": "Find out more on http://reddit.com/r/AskOuija\n\n__HOW TO DO IT:__\n\n1. Ask a question (start it with `Ouija, `) and have it answered by Ouija. \n2. To help answer a question, send a 1 letter response.\n3. \"Goodbye\" to end the response.`",
+    "question": "The question, asked by ${users[index]}, was: \n\n`${questions[index]}`.",
+    "noQuestion": "There is currently no question being asked. Ask a question by starting it with `Ouija, `, followed by your question.",
+    "answer": "\n\nThe answer is: \n\n`${answers[index]}`",
+    "reset": "\n\nThe question was reset."
+  },
+  "commands":{
+    "ask": "",
+    "help": "help",
+    "question": "question",
+    "goodbye": "goodbye",
+    "reset": "reset"
+  }
+}
