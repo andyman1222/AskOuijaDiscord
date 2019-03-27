@@ -1,3 +1,4 @@
+import datetime
 import discord
 from discord.ext import commands
 import json
@@ -8,31 +9,36 @@ with open('config.json') as conf:
 
 bot = discord.Client()
 prefix = data["prefix"]
-is_answering_question = False
-current_answer = ''
-graphs = {}
-previous_author = None
+guilds = {}
     
 @bot.event
 async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
-    print('------')
+    log("Ready!")
     
 @bot.event
 async def on_message(message):
-    if message.author.bot:
+    if message.author.bot or message.channel.name != "askouijatest":
         return
-
-    global is_answering_question
-    global current_answer
-    global previous_author
     
+    log(message.content)
+
+    if message.guild not in guilds:
+        # ik this is a bad format but it works
+        # key = guild name
+        # arr[0] = is_answering_qusetion
+        # arr[1] = current_answer
+        # arr[2] = previous_author
+        guilds[message.guild] = [False, '', None]
+        log("Created Ouija in Guild: " + message.guild.name)
+
+    is_answering_question = guilds[message.guild][0]
+    current_answer = guilds[message.guild][1]
+    previous_author = guilds[message.guild][2]
+    log(str(is_answering_question))
     if is_answering_question:
         if len(message.content) != 1 or previous_author == message.author:
             await message.delete()
-        elif message.content == "goodbye" and previous_author != message_author:
+        if message.content == "goodbye" and previous_author != message.author:
             is_answering_question = False
             await message.channel.send("`The answer is: " + current_answer + "`")
             current_answer = ''
@@ -45,4 +51,18 @@ async def on_message(message):
         await message.channel.send("`The question is: " + message.content[7:] + "`")
         is_answering_question = True
 
-bot.run('nice try bucko')
+    guilds[message.guild][0] = is_answering_question
+    guilds[message.guild][1] = current_answer
+    guilds[message.guild][2] = previous_author
+    
+def log(message):
+    time = datetime.datetime.now()
+    hour = str(time.hour) if time.hour >= 10 else "0" + str(time.hour)
+    minute = str(time.minute) if time.minute >= 10 else "0" + str(time.minute) 
+    second = str(time.second) if time.second >= 10 else "0" + str(time.second)  
+    print("[" + hour + ":" + minute + ":" + second + "] " + message)
+    
+bot.run('NDcyMTkwMjQ3NjgyMzEwMTYy.D3s-sw.ZWDlxQMsp7U2fqC8L9Ne4GFiFuQ')
+
+
+    
