@@ -62,7 +62,7 @@ def log(message):
     second = str(time.second) if time.second >= 10 else "0" + str(time.second)  
     print("[" + hour + ":" + minute + ":" + second + "] " + message)
     
-bot.run('NDcyMTkwMjQ3NjgyMzEwMTYy.D3s-sw.ZWDlxQMsp7U2fqC8L9Ne4GFiFuQ')
+bot.run('REDACTED')
 
 
     
