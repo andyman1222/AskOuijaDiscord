@@ -9,6 +9,7 @@ A Discord bot to emulate https://reddit.com/r/askouija in a Discord channel
 * If you just added a letter, you have to wait for someone else to add a letter brfore you can continue or finish answering.
 * You can view the current question being asked with `Ouija, question`.
 ## How to use your own bot (needs node.js or python and discord.py)
+Note: these instructions are rather outdated, for the old node.js version of the bot. I recommend using the python version- simply install discord.py via pip and run run.py (and also add your token).
 1. go into `config.json` and add your bot key where needed
 2. download and modify `app.js` to your liking
 3. use `npm install discord.js` to install dependencies
