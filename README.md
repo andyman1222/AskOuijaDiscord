@@ -11,7 +11,7 @@ A Discord bot to emulate https://reddit.com/r/askouija in a Discord channel
 ## How to use your own bot (needs node.js or python and discord.py)
 Note: these instructions are rather outdated, for the old node.js version of the bot. I recommend using the python version- simply install discord.py via pip and run run.py (and also add your token).
 1. go into `config.json` and add your bot key where needed
-2. download and modify `app.js` to your liking
+2. download and modify the code to your liking
 3. use ~~`npm install discord.js`~~ `pip install discord.py` to install dependencies
 4. use ~~`node app.js`~~ `python run.py` to run your bot
 5. go to https://discordapp.com/oauth2/authorize?client_id=CLIENTID&scope=bot&permissions=1 to add your bot to your server
